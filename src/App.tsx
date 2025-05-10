@@ -34,7 +34,7 @@ const App: React.FC = () => {
     return tools.map((tool) => (
       <div
         key={tool.value}
-        className={`menu-item g-menu-item ${currentTool === tool.value ? 'is-active' : ''}`}
+        className={`g-menu-item ${currentTool === tool.value ? 'is-active' : ''}`}
         onClick={() => onToolChange(tool)}
       >
         {tool.label}
