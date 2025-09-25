@@ -8,6 +8,7 @@ import {
 } from "./editor/index";
 import { ITool, tools } from "./config";
 import { OllamaService } from "./api/ollama";
+import GithubBadge from "./components/GithubBadge";
 
 const App: React.FC = () => {
   const [currentTool, setCurrentTool] = useState<string>(
@@ -17,7 +18,7 @@ const App: React.FC = () => {
     tools.find(tool => tool.value === currentTool)?.prompt || ""
   );
   const [currentModel, setCurrentModel] = useState<string>(
-    localStorage.getItem('code-tools-model') || "qwen2.5-coder:7b"
+    localStorage.getItem('code-tools-model') || "qwen2.5-coder:1.5b"
   );
 
   const model1 = useRef(createEditorModel("", "typescript"));
@@ -98,38 +99,41 @@ const App: React.FC = () => {
     }
   };
   return (
-    <div className="app-container">
-      <div className="app-home">
-        <div className="app-header">
-          <div className="app-header-left">
-            <span className="app-icon-button">
-              <i className="icon red"></i>
-              <i className="icon yellow"></i>
-              <i className="icon green"></i>
-            </span>
-            <div className="app-button-group">
-              <button className="app-button" onClick={handleExecute}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M7 5V19L18 12L7 5Z" fill="currentColor" />
-                </svg>
-                <span>Execute</span>
-              </button>
+    <>
+      <div className="app-container">
+        <div className="app-home">
+          <div className="app-header">
+            <div className="app-header-left">
+              <span className="app-icon-button">
+                <i className="icon red"></i>
+                <i className="icon yellow"></i>
+                <i className="icon green"></i>
+              </span>
+              <div className="app-button-group">
+                <button className="app-button" onClick={handleExecute}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 5V19L18 12L7 5Z" fill="currentColor" />
+                  </svg>
+                  <span>Execute</span>
+                </button>
+              </div>
             </div>
+<span className="app-tips-text">使用时请在本地安装 Ollama 并部署 qwen2.5-coder:1.5b</span>
           </div>
-          <span className="app-tips-text">使用时请在本地安装 Ollama 并部署 qwen2.5-coder:7b</span>
-        </div>
-        <div className="app-main">
-          <div className="menu-container">
-            <div className="g-menu second-level" id="menu-container">
-              {renderPresetTools()}
+          <div className="app-main">
+            <div className="menu-container">
+              <div className="g-menu second-level" id="menu-container">
+                {renderPresetTools()}
+              </div>
             </div>
-          </div>
-          <div className="tool-container">
-            <div id="editor-container" ref={editorContainerRef}></div>
+            <div className="tool-container">
+              <div id="editor-container" ref={editorContainerRef}></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <GithubBadge url="https://github.com/gausstool/code-tools" />
+    </>
   );
 }
 
